@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Store Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #container {
+      display: flex;
+      width: 90%;
+    }
+    #sidebar {
+      width: 20%;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    #content {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .store-details {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+      border-radius: 5px;
+      max-width: 80%;
+      text-align: center;
+    }
+    .store {
+      display: none;
+    }
+    .store.active {
+      display: block;
+    }
+    .store h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .store p {
+      margin-bottom: 5px;
+    }
+    .store strong {
+      font-weight: bold;
+    }
+    .store a {
+      color: blue;
+      text-decoration: none;
+    }
+    .store a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    function showStore(storeId) {
+      var stores = document.querySelectorAll('.store');
+      stores.forEach(function(store) {
+        store.classList.remove('active');
+      });
+      document.getElementById(storeId).classList.add('active');
+
+      // Get the cover image URL from the data object
+      var coverUrl = storeData[storeId].coverUrl;
+
+      // Set the background image of the content div
+      document.getElementById('content').style.backgroundImage = 'url(' + coverUrl + ')';
+    }
+
+    // Store data object 
+    var storeData = {
+      "BB.BRW": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.BRW.jpg" 
+      },
+      "BB.BB": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.BB.jpg"
+      },
+      "LI.CC": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.CC.jpg"
+      },
+      "LI.GL": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.GL.jpg"
+      },
+      "LI.MG": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.MG.mp4"
+      },
+      "LI.SBS": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.SBS.png"
+      },
+      "BB.KSM": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.KSM.jpg"
+      },
+      "BB.MJN": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.MJN.jpg"
+      },
+      "BB.NYL": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.NYL.jpg"
+      },
+      "LI.ACD": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.ACD.jpg"
+      },
+      "LI.2R": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.2R.HEIC"
+      },
+      "LI.680": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.680.HEIC"
+      },
+      "LI.CBD": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.CBD.HEIC"
+      },
+      "LI.ESL": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.ESL.HEIC"
+      },
+      "LI.GC": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.GC.png"
+      },
+      "LI.H": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.H.png"
+      },
+      "LI.HUB": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.HUB.mp4"
+      },
+      "LI.IMR": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.IMR.mp4"
+      },
+      "LI.JN": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.JN.mp4"
+      },
+      "LI.MGR": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.MGR.jpg"
+      },
+      "LI.MRU": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.MRU.jpg"
+      },
+      "LI.NVM": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.NVM.png"
+      },
+      "LI.NYK": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.NYK.jpg"
+      },
+      "lI.NYL": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.NYL.png"
+      },
+      "LI.SRT": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.SRT.mp4"
+      },
+      "LI.WG": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.WG.mp4"
+      },
+      "LI.YY": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.YY.jpeg"
+      },
+      "LIDSP.JN": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LIDSP.JN.jpg"
+      },
+      "LIDSP.WSQ": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LIDSP.WSQ.jpeg"
+      },
+      "MAC.H": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/MAC.H.jpg"
+      },
+      "MAC.JN": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/MAC.JN.jpeg"
+      },
+      "MAC.SRT": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/MAC.SRT.jpg"
+      },
+      "HQ": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/HQ.jpg"
+      },
+      "BB.BRW": { 
+        "coverUrl": "https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.BRW.jpg"
+      }
+    };
+  </script>
+</head>
+<body>
+  <div id="container">
+    <ul id="sidebar">
+        <li><a href="#BB.BRW" onclick="showStore('BB.BRW')">BEAUTY BOX BROADWALK MALL</a></li>
+        <li><a href="#BB.BB" onclick="showStore('BB.BB')">BEAUTY BOX BURUBURU</a></li>
+        <li><a href="#LI.CC" onclick="showStore('LI.CC')">LINTONS BEAUTY WORLD CAPITAL CENTRE</a></li>
+        <li><a href="#LI.GL" onclick="showStore('LI.GL')">LINTONS BEAUTY WORLD GALLERIA</a></li>
+        <li><a href="#LI.MG" onclick="showStore('LI.MG')">LINTONS BEAUTY WORLD MEGA</a></li>
+        <li><a href="#LI.SBS" onclick="showStore('LI.SBS')">LINTONS BEAUTY WORLD MOMBASA MARIKITI</a></li>
+        <li><a href="#BB.KSM" onclick="showStore('BB.KSM')">BEAUTY BOX KISUMU</a></li>
+        <li><a href="#B.MJN" onclick="showStore('BB.MJN')">BEAUTY BOX MAJANI PLAZA</a></li>
+        <li><a href="#BB.NYL" onclick="showStore('BB.NYL')">BEAUTY BOX NYALI</a></li>
+        <li><a href="#LI.ACD" onclick="showStore('LI.ACD')">LINTONS BEAUTY WORLD ACADEMY</a></li>
+        <li><a href="#LI.2R" onclick="showStore('LI.2R')">LINTONS BEAUTY WORLD TWO RIVERS</a></li>
+        <li><a href="#LI.680" onclick="showStore('LI.680')">LINTONS BEAUTY WORLD SIX EIGHTY</a></li>
+        <li><a href="#LI.CBD" onclick="showStore('LI.CBD')">LINTONS BEAUTY WORLD CBD MAMA NGINA</a></li>
+        <li><a href="#LI.ESL" onclick="showStore('LI.ESL')">LINTONS BEAUTY WORLD BUSINESS BAY, EASTLEIGH</a></li>
+        <li><a href="#LI.GC" onclick="showStore('LI.GC')">LINTONS BEAUTY WORLD GARDEN CITY</a></li>
+        <li><a href="#LI.H" onclick="showStore('LI.H')">LINTONS BEAUTY WORLD HILTON</a></li>
+        <li><a href="#LI.HUB" onclick="showStore('LI.HUB')">LINTONS BEAUTY WORLD THE HUB</a></li>
+        <li><a href="#LI.IMR" onclick="showStore('LI.IMR')">LINTONS BEAUTY WORLD IMARA DAIMA</a></li>
+        <li><a href="#LI.JN" onclick="showStore('LI.JN')">LINTONS BEAUTY WORLD JUNCTION</a></li>
+        <li><a href="#LI.MGR" onclick="showStore('LI.MGR')">LINTONS BEAUTY WORLD MERU GREENWOOD</a></li>
+        <li><a href="#LI.MRU" onclick="showStore('LI.MRU')">LINTONS BEAUTY WORLD MERU</a></li>
+        <li><a href="#LI.NVM" onclick="showStore('LI.NVM')">LINTONS BEAUTY WORLD VILLAGE MARKET</a></li>
+        <li><a href="#LI.NYK" onclick="showStore('LI.NYK')">LINTONS BEAUTY WORLD NANYUKI CEDAR MALL</a></li>
+        <li><a href="#lI.NYL" onclick="showStore('lI.NYL')">LINTONS BEAUTY WORLD NYALI</a></li>
+        <li><a href="#LI.SRT" onclick="showStore('LI.SRT')">LINTONS BEAUTY WORLD SARIT</a></li>
+        <li><a href="#LI.WG" onclick="showStore('LI.WG')">LINTONS BEAUTY WORLD WESTGATE</a></li>
+        <li><a href="#LI.YY" onclick="showStore('LI.YY')">LINTONS BEAUTY WORLD YAYA</a></li>
+        <li><a href="#LIDSP.JN" onclick="showStore('LIDSP.JN')">LINTONS BEAUTY WORLD DAYSPA JUNCTION</a></li>
+        <li><a href="#LIDSP.WSQ" onclick="showStore('LIDSP.WSQ')">LINTONS BEAUTY WORLD DAYSPA WESTLANDS SQUARE</a></li>
+        <li><a href="#MAC.H" onclick="showStore('MAC.H')">MAC STORE HILTON</a></li>
+        <li><a href="#MAC.JN" onclick="showStore('MAC.JN')">MAC STORE JUNCTION</a></li>
+        <li><a href="#MAC.SRT" onclick="showStore('MAC.SRT')">MAC STORE SARIT</a></li>
+        <li><a href="#HG" onclick="showStore('HQ')">LINTONS BEAUTY WORLD HEAD OFFICE</a></li>
+        <li><a href="#BB.BRW" onclick="showStore('BB.BRW')">BEAUTY BOX MWANZI MARKET</a></li>
+    </ul>
+    <div id="content">
+        <div id="BB.BRW" class="store active" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.BRW.jpg');">
+          <div class="store-details">
+            <h2>BEAUTY BOX BROADWALK MALL</h2>
+            <p><strong>Address:</strong> Ojijo Rd, Nairobi</p>
+            <p><strong>Locality:</strong> Ojijo Road,Westlands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.27114327002312</p>
+            <p><strong>Longitude:</strong> 36.8124003498948</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.27114327002312,36.8124003498948">https://www.google.com/maps/place/-1.27114327002312,36.8124003498948</a></p>
+            <p><strong>Telephone:</strong> +(254)114-694287</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30 -20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="BB.BB" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.BB.jpg');">
+          <div class="store-details">
+            <h2>BEAUTY BOX BURUBURU</h2>
+            <p><strong>Address:</strong> Mumias South Rd Nairobi</p>
+            <p><strong>Locality:</strong> Mumias South Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.286795171</p>
+            <p><strong>Longitude:</strong> 36.8809127</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.286795171,36.8809127">https://www.google.com/maps/place/-1.286795171,36.8809127</a></p>
+            <p><strong>Telephone:</strong> +(254)798-362954</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 09:30-19:00</p>
+            <p><strong>Tuesday hours:</strong> 09:30-19:00</p>
+            <p><strong>Wednesday hours:</strong> 09:30-19:00</p>
+            <p><strong>Thursday hours:</strong> 09:30-19:00</p>
+            <p><strong>Friday hours:</strong> 09:30-19:00</p>
+            <p><strong>Saturday hours:</strong> 09:30-19:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business that has grown to 30 shops in Nairobi, Mombasa & Kampala offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. Through these shops, Lintons not only houses global brands such as Estee Lauder, Clinique, MAC, Clarins, Lancome, Chanel, Dior, but also offers a platform to upcoming local brands and manufacturers to reach a fast growing consumer base.</p>
+          </div>
+        </div>
+        <div id="LI.CC" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.CC.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD CAPITAL CENTRE</h2>
+            <p><strong>Address:</strong> Mombasa Road, Nairobi</p>
+            <p><strong>Locality:</strong> Mombasa Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.3164177</p>
+            <p><strong>Longitude:</strong> 36.834662496631</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.3164177,36.834662496631">https://www.google.com/maps/place/-1.3164177,36.834662496631</a></p>
+            <p><strong>Telephone:</strong> +(254)795-350767</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 09:30-19:00</p>
+            <p><strong>Tuesday hours:</strong> 09:30-19:00</p>
+            <p><strong>Wednesday hours:</strong> 09:30-19:00</p>
+            <p><strong>Thursday hours:</strong> 09:30-19:00</p>
+            <p><strong>Friday hours:</strong> 09:30-19:00</p>
+            <p><strong>Saturday hours:</strong> 09:30-19:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.GL" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.GL.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD GALLERIA</h2>
+            <p><strong>Address:</strong> Junction of Magadi &, Langata Rd, Nairobi</p>
+            <p><strong>Locality:</strong> Junction of Magadi &, Langata Rd, Nairobi</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.3432</p>
+            <p><strong>Longitude:</strong> 36.7653</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.3432,36.7653">https://www.google.com/maps/place/-1.3432,36.7653</a></p>
+            <p><strong>Telephone:</strong> +(254)714-949250</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.MG" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.MG.mp4');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD MEGA</h2>
+            <p><strong>Address:</strong> Opposite Nyayo Stadium, Along Uhuru Highway, Nairob</p>
+            <p><strong>Locality:</strong> Uhuru Highway</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.3013938753221</p>
+            <p><strong>Longitude:</strong> 36.8261038386284</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.3013938753221,36.8261038386284">https://www.google.com/maps/place/-1.3013938753221,36.8261038386284</a></p>
+            <p><strong>Telephone:</strong> +(254)796-099613</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.SBS" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.SBS.png');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD MOMBASA MARIKITI</h2>
+            <p><strong>Address:</strong> Mji wa Kale, Nkurumah Rd, Mvita</p>
+            <p><strong>Locality:</strong> Marikiti</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> 4.0631</p>
+            <p><strong>Longitude:</strong> 39.6723</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/4.0631,39.6723">https://www.google.com/maps/place/4.0631,39.6723</a></p>
+            <p><strong>Telephone:</strong> +(254)707-918766</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:00</p>
+            <p><strong>Friday hours:</strong> 08:30-19:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="BB.KSM" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.KSM.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD KISUMU</h2>
+            <p><strong>Address:</strong>  Jomo Kenyatta HwyKisumu</p>
+            <p><strong>Locality:</strong> Jomo Kenyatta Highway</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -0.0982844846081679</p>
+            <p><strong>Longitude:</strong> 34.7625134094098</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-0.0982844846081679,34.7625134094098">https://www.google.com/maps/place/-0.0982844846081679,34.7625134094098</a></p>
+            <p><strong>Telephone:</strong> +(254)745-291536</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="BB.MJN" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.MJN.jpg');">
+          <div class="store-details">
+            <h2>BEAUTY BOX MAJANI PLAZA</h2>
+            <p><strong>Address:</strong> PR89+8F6, Nairobi</p>
+            <p><strong>Locality:</strong> Koinange Street</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.28402998042863</p>
+            <p><strong>Longitude:</strong> 36.8186775517448</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.28402998042863,36.8186775517448">https://www.google.com/maps/place/-1.28402998042863,36.8186775517448</a></p>
+            <p><strong>Telephone:</strong> +(254)797-558940</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:30</p>
+            <p><strong>Friday hours:</strong> 08:30-19:30</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="BB.NYL" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.NYL.jpg');">
+          <div class="store-details">
+            <h2>BEAUTY BOX NYALI</h2>
+            <p><strong>Address:</strong>   Nyali Rd Mombasa</p>
+            <p><strong>Locality:</strong> Malindi Rd</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -4.01901655428413</p>
+            <p><strong>Longitude:</strong> 39.7211274963726</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-4.01901655428413,39.7211274963726">https://www.google.com/maps/place/-4.01901655428413,39.7211274963726</a></p>
+            <p><strong>Telephone:</strong> +(254)741-606639</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.ACD" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.ACD.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD ACADEMY</h2>
+            <p><strong>Address:</strong>   Kenrail Towers,Ring road,Nairobi</p>
+            <p><strong>Locality:</strong>  Ring Road, Westlands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.26083520019635</p>
+            <p><strong>Longitude:</strong> 36.8042420922232</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.26083520019635,36.8042420922232">https://www.google.com/maps/place/-1.26083520019635,36.8042420922232</a></p>
+            <p><strong>Telephone:</strong> +(254)714-870037</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-17:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-17:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-17:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-17:30</p>
+            <p><strong>Friday hours:</strong> 08:30-17:30</p>
+            <p><strong>Saturday hours:</strong> 08:30-17:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.2R" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.2R.HEIC');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD TWO RIVERS</h2>
+            <p><strong>Address:</strong>  Two rivers mall, Limuru Road Nairobi KE</p>
+            <p><strong>Locality:</strong> Limuru Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.21061712859525</p>
+            <p><strong>Longitude:</strong> 36.7946153364016</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.21061712859525,36.7946153364016">https://www.google.com/maps/place/-1.21061712859525,36.7946153364016</a></p>
+            <p><strong>Telephone:</strong> +(254)798-568285</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.680" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.680.HEIC');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD SIX EIGHTY</h2>
+            <p><strong>Address:</strong> 680 Kenyatta Ave Nairobi</p>
+            <p><strong>Locality:</strong> Kenyatta Avenue</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.28533562370231</p>
+            <p><strong>Longitude:</strong> 36.8201972075663</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.28533562370231,36.8201972075663">https://www.google.com/maps/place/-1.28533562370231,36.8201972075663</a></p>
+            <p><strong>Telephone:</strong> +(254)705-075935</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:30</p>
+            <p><strong>Friday hours:</strong> 08:30-19:30</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.CBD" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.CBD.HEIC');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD CBD MAMA NGINA</h2>
+            <p><strong>Address:</strong> Mama Ngina St , Nairobi</p>
+            <p><strong>Locality:</strong> Mama Ngina Street</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.2854615167231</p>
+            <p><strong>Longitude:</strong>  36.8231467849674</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.2854615167231,36.8231467849674">https://www.google.com/maps/place/-1.2854615167231,36.8231467849674</a></p>
+            <p><strong>Telephone:</strong> +(254)743-795104</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:30</p>
+            <p><strong>Friday hours:</strong> 08:30-19:30</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.ESL" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.ESL.HEIC');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD BUSINESS BAY EASTLEIGH</h2>
+            <p><strong>Address:</strong> General Waruinge Street, Nairobi Business Bay Square (BBS) Mall</p>
+            <p><strong>Locality:</strong> General Waruinge Street</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.27959317549746</p>
+            <p><strong>Longitude:</strong>  36.8466044517448</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.27959317549746,36.8466044517448">https://www.google.com/maps/place/-1.27959317549746,36.8466044517448</a></p>
+            <p><strong>Telephone:</strong> +(254)743-032444</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 10:00-21:00</p>
+            <p><strong>Tuesday hours:</strong> 10:00-21:00</p>
+            <p><strong>Wednesday hours:</strong> 10:00-21:30</p>
+            <p><strong>Thursday hours:</strong> 10:00-21:00</p>
+            <p><strong>Friday hours:</strong> 10:00-21:00</p>
+            <p><strong>Saturday hours:</strong> 11:00-21:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.GC" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.GC.png');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD GARDEN CITY</h2>
+            <p><strong>Address:</strong>  Garden City,Thika Rd</p>
+            <p><strong>Locality:</strong> Thika Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.23229022436931</p>
+            <p><strong>Longitude:</strong> 36.8788013517445</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.23229022436931,36.8788013517445">https://www.google.com/maps/place/-1.23229022436931,36.8788013517445</a></p>
+            <p><strong>Telephone:</strong> +(254)700-193297</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.H" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.H.png');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD CBD HILTON</h2>
+            <p><strong>Address:</strong> Mama Ngina, Nairobi Hilton Nairobi</p>
+            <p><strong>Locality:</strong> Mama Ngina Street</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.28514240107738</p>
+            <p><strong>Longitude:</strong>  36.8243508455707</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.28514240107738,36.8243508455707">https://www.google.com/maps/place/-1.28514240107738,36.8243508455707</a></p>
+            <p><strong>Telephone:</strong> +(254)704-116777</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:30</p>
+            <p><strong>Friday hours:</strong> 08:30-19:30</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.HUB" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.HUB.mp4');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD THE HUB</h2>
+            <p><strong>Address:</strong>  Dagoretti Rd, Nairobi City</p>
+            <p><strong>Locality:</strong> Dagoretti Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.32004394500663</p>
+            <p><strong>Longitude:</strong> 36.7040989652378</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.32004394500663,36.7040989652378">https://www.google.com/maps/place/-1.32004394500663,36.7040989652378</a></p>
+            <p><strong>Telephone:</strong> +(254)714-011642</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.IMR" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.IMR.mp4');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD IMARA DAIMA</h2>
+            <p><strong>Address:</strong>  Mombasa Road, Nairobi The Imaara Shopping Mall</p>
+            <p><strong>Locality:</strong> Mombasa Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.32752892380288</p>
+            <p><strong>Longitude:</strong> 36.8816109382524</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.32752892380288,36.8816109382524">https://www.google.com/maps/place/-1.32752892380288,36.8816109382524</a></p>
+            <p><strong>Telephone:</strong> +(254)701-226560</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.JN" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.JN.mp4');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD JUNCTION</h2>
+            <p><strong>Address:</strong>  Junction, Ngong Road, Kingara Rd, Nairob</p>
+            <p><strong>Locality:</strong> Ngong Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.29862260668531</p>
+            <p><strong>Longitude:</strong> 36.7619930291964</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.29862260668531,36.7619930291964">https://www.google.com/maps/place/-1.29862260668531,36.7619930291964</a></p>
+            <p><strong>Telephone:</strong> +(254)114-166660</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.MGR" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.MGR.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY MERU GREENWOOD</h2>
+            <p><strong>Address:</strong>  2MV3+J57, Meru</p>
+            <p><strong>Locality:</strong> Meru - Nairobi Highway</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> 0.0442390477885117</p>
+            <p><strong>Longitude:</strong> 37.652905136395</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/0.0442390477885117,37.652905136395">https://www.google.com/maps/place/0.0442390477885117,37.652905136395</a></p>
+            <p><strong>Telephone:</strong> +(254)113-370417</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.MRU" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.MRU.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD MERU</h2>
+            <p><strong>Address:</strong>  NANYUKI HIGHWAY, Meru</p>
+            <p><strong>Locality:</strong> Meru - Nanyuki Highway</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> 0.0518734996310687</p>
+            <p><strong>Longitude:</strong> 37.6444567054705</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/0.0518734996310687,37.6444567054705">https://www.google.com/maps/place/0.0518734996310687,37.6444567054705</a></p>
+            <p><strong>Telephone:</strong> +(254)798-568321</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:00</p>
+            <p><strong>Friday hours:</strong> 08:30-19:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.NVM" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.NVM.png');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD VILLAGE MARKET</h2>
+            <p><strong>Address:</strong>  Limuru Road, Gigiri, Nairobi</p>
+            <p><strong>Locality:</strong> Limuru Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.22908021320829</p>
+            <p><strong>Longitude:</strong> 36.8048020364016</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.22908021320829,36.8048020364016">https://www.google.com/maps/place/-1.22908021320829,36.8048020364016</a></p>
+            <p><strong>Telephone:</strong> +(254)716-825042</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.NYK" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.NYK.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD NANYUKI CEDAR MALL</h2>
+            <p><strong>Address:</strong>  Nanyuki-Rumuruti RD</p>
+            <p><strong>Locality:</strong> Meru - Nanyuki-Rumuruti Rd</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> 0.0186099862173703</p>
+            <p><strong>Longitude:</strong> 37.0743702400952</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/0.0186099862173703,37.0743702400952">https://www.google.com/maps/place/0.0186099862173703,37.0743702400952</a></p>
+            <p><strong>Telephone:</strong> +(254)791-249314</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 09:00-19:00</p>
+            <p><strong>Tuesday hours:</strong> 09:00-19:00</p>
+            <p><strong>Wednesday hours:</strong> 09:00-19:00</p>
+            <p><strong>Thursday hours:</strong> 09:00-19:00</p>
+            <p><strong>Friday hours:</strong> 09:00-19:00</p>
+            <p><strong>Saturday hours:</strong> 09:00-19:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.NYL" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.NYL.png');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD NYALI</h2>
+            <p><strong>Address:</strong>  Links Rd Mombasa</p>
+            <p><strong>Locality:</strong> Links Road, Nyali</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>  -4.02183143560826</p>
+            <p><strong>Longitude:</strong> 39.7195034634122</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-4.02183143560826,39.7195034634122">https://www.google.com/maps/place/-4.02183143560826,39.7195034634122</a></p>
+            <p><strong>Telephone:</strong> +(254)705-073906</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.SRT" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.SRT.mp4');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD SARIT</h2>
+            <p><strong>Address:</strong>  Sarit Centre, Karuna Rd, Nairobi</p>
+            <p><strong>Locality:</strong> Karuna Rd, Westlands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>  -1.26092452149237</p>
+            <p><strong>Longitude:</strong> 36.801988422909</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.26092452149237,36.801988422909">https://www.google.com/maps/place/-1.26092452149237,36.801988422909</a></p>
+            <p><strong>Telephone:</strong> +(254)700-025182</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.WG" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.WG.mp4');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD WESTGATE</h2>
+            <p><strong>Address:</strong>  18 Mwanzi Rd, Nairobi</p>
+            <p><strong>Locality:</strong> 15 Mwanzi Rd</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>  -1.2573384686681</p>
+            <p><strong>Longitude:</strong> 36.8030293364017</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.2573384686681,36.8030293364017">https://www.google.com/maps/place/-1.2573384686681,36.8030293364017</a></p>
+            <p><strong>Telephone:</strong> +(254)700-192992</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LI.YY" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LI.YY.jpeg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD YAYA</h2>
+            <p><strong>Address:</strong>  Argwings Kodhek Rd, Nairobi</p>
+            <p><strong>Locality:</strong> Argwings Kodhek Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>  -1.29247687656746</p>
+            <p><strong>Longitude:</strong> 36.7874655652378</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.29247687656746,36.7874655652378">https://www.google.com/maps/place/-1.29247687656746,36.7874655652378</a></p>
+            <p><strong>Telephone:</strong> +(254)716-889565</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LIDSP.JN" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LIDSP.JN.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD DAYSPA JUNCTION</h2>
+            <p><strong>Address:</strong>   Junction, Ngong Road, Kingara Rd, Nairobi</p>
+            <p><strong>Locality:</strong>  Ngong Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>   -1.29862260668531</p>
+            <p><strong>Longitude:</strong>  36.7619930291964</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.29862260668531,36.7619930291964">https://www.google.com/maps/place/-1.29862260668531,36.7619930291964</a></p>
+            <p><strong>Telephone:</strong> +(254)703-222270</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="LIDSP.WSQ" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/LIDSP.WSQ.jpeg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD DAYSPA WESTLANDS SQUARE</h2>
+            <p><strong>Address:</strong>   Ring Rd Parklands, Nairobi</p>
+            <p><strong>Locality:</strong>  Ring Rd Parklands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>   -1.26336923812516</p>
+            <p><strong>Longitude:</strong>  36.8021171210591</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.26336923812516,36.8021171210591">https://www.google.com/maps/place/-1.26336923812516,36.8021171210591</a></p>
+            <p><strong>Telephone:</strong> +(254)110-268577</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="MAC.H" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/MAC.H.jpg');">
+          <div class="store-details">
+            <h2>MAC STORE HILTON</h2>
+            <p><strong>Address:</strong> Mama Ngina, Nairobi Hilton Nairobi</p>
+            <p><strong>Locality:</strong> Mama Ngina Street</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong> -1.28514240107738</p>
+            <p><strong>Longitude:</strong> 36.8243508455707</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.28514240107738,36.8243508455707">https://www.google.com/maps/place/-1.28514240107738,36.8243508455707</a></p>
+            <p><strong>Telephone:</strong> +(254)748-312228</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-19:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-19:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-19:30</p>
+            <p><strong>Friday hours:</strong> 08:30-19:30</p>
+            <p><strong>Saturday hours:</strong> 08:30-19:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="MAC.JN" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/MAC.JN.jpeg');">
+          <div class="store-details">
+            <h2>MAC STORE JUNCTION</h2>
+            <p><strong>Address:</strong>   Junction, Ngong Road, Kingara Rd, Nairobi</p>
+            <p><strong>Locality:</strong>  Ngong Road</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>   -1.29862260668531</p>
+            <p><strong>Longitude:</strong>  36.7619930291964</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.29862260668531,36.7619930291964">https://www.google.com/maps/place/-1.29862260668531,36.7619930291964</a></p>
+            <p><strong>Telephone:</strong> +(254)714-949251</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="MAC.SRT" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/MAC.SRT.jpg');">
+          <div class="store-details">
+            <h2>MAC STORE SARIT</h2>
+            <p><strong>Address:</strong>    Sarit Centre, Karuna Rd, Nairobi</p>
+            <p><strong>Locality:</strong>  Karuna Rd, Westlands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>    -1.26092452149237</p>
+            <p><strong>Longitude:</strong>   36.801988422909</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.26092452149237,36.801988422909">https://www.google.com/maps/place/-1.26092452149237,36.801988422909</a></p>
+            <p><strong>Telephone:</strong> +(254)700-021534</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="HQ" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/HQ.jpg');">
+          <div class="store-details">
+            <h2>LINTONS BEAUTY WORLD HEAD OFFICE</h2>
+            <p><strong>Address:</strong>    Ring Road Mkungu Close</p>
+            <p><strong>Locality:</strong>  Ring Road, Westlands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>    -1.26083520019635</p>
+            <p><strong>Longitude:</strong>   36.8042420922232</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.26083520019635,36.8042420922232">https://www.google.com/maps/place/-1.26083520019635,36.8042420922232</a></p>
+            <p><strong>Telephone:</strong> +(254)712-077248</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-17:30</p>
+            <p><strong>Tuesday hours:</strong> 08:30-17:30</p>
+            <p><strong>Wednesday hours:</strong> 08:30-17:30</p>
+            <p><strong>Thursday hours:</strong> 08:30-17:30</p>
+            <p><strong>Friday hours:</strong> 08:30-17:30</p>
+            <p><strong>Saturday hours:</strong> 09:30-17:30</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+        <div id="BB.BRW" class="store" style="background-image: url('https://storage.cloud.google.com/lint-test-call-agent/lint-imgs/BB.BRW.jpg');">
+          <div class="store-details">
+            <h2>BEAUTY BOX MWANZI MARKET</h2>
+            <p><strong>Address:</strong>    Mwanzi Rd, Westlands</p>
+            <p><strong>Locality:</strong>  Ojijo Road,Westlands</p>
+            <p><strong>Country / Region:</strong> KE</p>
+            <p><strong>Latitude:</strong>     -1.25426508378528</p>
+            <p><strong>Longitude:</strong>   36.799652553976</p>
+            <p><strong>Google Maps:</strong> <a href="https://www.google.com/maps/place/-1.25426508378528,36.799652553976">https://www.google.com/maps/place/-1.25426508378528,36.799652553976</a></p>
+            <p><strong>Telephone:</strong> +(254)757-109391</p>
+            <p><strong>Website:</strong> <a href="https://www.lintonsbeauty.com/">https://www.lintonsbeauty.com/</a></p>
+            <p><strong>Monday hours:</strong> 08:30-20:00</p>
+            <p><strong>Tuesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Wednesday hours:</strong> 08:30-20:00</p>
+            <p><strong>Thursday hours:</strong> 08:30-20:00</p>
+            <p><strong>Friday hours:</strong> 08:30-20:00</p>
+            <p><strong>Saturday hours:</strong> 08:30-20:00</p>
+            <p><strong>Special hours:</strong> nan</p>
+            <p><strong>From the business:</strong> Lintons Beauty World, a multichannel retail business offering top of the line skincare, color cosmetics, luxury fragrance and day-spa experience. </p>
+          </div>
+        </div>
+    </body>
+    </html>
